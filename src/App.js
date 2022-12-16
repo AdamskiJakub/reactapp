@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import { Route, Redirect, Switch } from 'react-router-dom';
+import React, { Component } from 'react';
+import PatientForm from './components/patientForm';
+import Patients from './components/patients';
+import ResearchProjects from './components/researchProjects';
+import NotFound from './components/notFound'
+import NavBar from './components/navBar';
+import LoginForm from './components/loginForm';
+import RegisterForm from './components/registerForm';
 import './App.css';
+import Tests from './components/tests';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <React.Fragment>
+      <NavBar />
+      <main className='container'>
+        <Switch>
+        <Route path='/register' component={RegisterForm} />
+        <Route path='/login' component={LoginForm} />
+        <Route path='/patients/:id' component={PatientForm} />
+        <Route path='/patients' component={Patients} />
+        <Route path='/researchProjects' component={ResearchProjects} />
+        <Route path='/tests' component={Tests} />
+        <Route path='/not-found' component={NotFound} />
+        <Redirect from='/' exact to='/patients' />
+        <Redirect to='/not-found' />
+        </Switch>
+      </main>
+      </React.Fragment>
+    ); 
+  }
 }
-
 export default App;
